@@ -1,21 +1,17 @@
 # AI Chatbot 🤖
 
 A simple Python *rule-based chatbot* that runs in the console.  
-This is my first AI project — built to understand the basics of chatbot development.
-
----
+This is my first AI project 🚀 — built to understand the basics of chatbot development.
 
 ## ✨ Features
-- Greets the user (Hi/Hello)
+- Greets the user (Hi/Hello) 👋
 - Tells the current time ⏰
 - Tells the current date 📅
-- Says goodbye when you exit 👋
+- Random jokes 😂
+- Small calculator mode (type calc 2+3*4) 🧮
 
----
-
-## 🚀 How to Run
-1. Clone this repository:
+## ⚡ How to Run
+1. Clone the repo:
    ```bash
-   git clone <your-repo-link>
-## Demo
-![chatbot Demo] (screenshot.png)
+   git clone https://github.com/<your-username>/AI_Chatbot.git
+   cd AI_Chatbot
