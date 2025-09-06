@@ -17,3 +17,5 @@ This is my first AI project — built to understand the basics of chatbot develo
 1. Clone this repository:
    ```bash
    git clone <your-repo-link>
+## Demo
+![chatbot Demo] (screenshot.png)
