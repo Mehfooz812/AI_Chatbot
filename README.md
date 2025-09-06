@@ -15,3 +15,6 @@ This is my first AI project 🚀 — built to understand the basics of chatbot d
    ```bash
    git clone https://github.com/<your-username>/AI_Chatbot.git
    cd AI_Chatbot
+
+   ## Demo
+   ![chatbot Demo] (Screenshot 2025.png)
