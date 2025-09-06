@@ -17,4 +17,4 @@ This is my first AI project 🚀 — built to understand the basics of chatbot d
    cd AI_Chatbot
 
    ## Demo
-   ![chatbot Demo] (Screenshot.png.png)
+   ![chatbot Demo] (Screenshot.png)
