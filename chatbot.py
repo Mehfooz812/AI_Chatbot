@@ -1,30 +1,99 @@
-import datetime
+"""
+AI Chatbot - Rule Based
+Author: Mehfooz
+Year: 2025
+
+How to run:
+    python chatbot.py
+"""
+
 import random
+from datetime import datetime
 
-print("🤖 Chatbot: Hi! I am your AI chatbot. Type 'bye' to exit.")
+GREETINGS = ["Hello!", "Hi there!", "Hey!", "Hi! How can I help?"]
+JOKES = [
+    "Why do programmers prefer dark mode? Because light attracts bugs! 😂",
+    "Why did the developer go broke? Because he used up all his cache!"
+]
 
-# Some responses
-responses = {
-    "hi": ["Hello!", "Hi there!", "Hey! How can I help you?"],
-    "how are you": ["I'm just a bot, but I'm doing great!", "All good here. What about you?"],
-    "name": ["I'm your chatbot assistant.", "You can call me ChatBuddy!"],
-    "time": [f"The current time is {datetime.datetime.now().strftime('%H:%M:%S')}"],
-    "date": [f"Today's date is {datetime.datetime.now().strftime('%Y-%m-%d')}"]
-}
+def get_time() -> str:
+    """Return current time as HH:MM:SS."""
+    return datetime.now().strftime("%H:%M:%S")
 
-while True:
-    user_input = input("You: ").lower()
+def get_date() -> str:
+    """Return today's date in readable format (e.g., 06 September 2025)."""
+    return datetime.now().strftime("%d %B %Y")
 
-    if user_input == "bye":
-        print("🤖 Chatbot: Bye! Have a nice day 👋")
-        break
+def simple_calc(expr: str) -> str:
+    """
+    Very small safe-ish calculator:
+    - Allows digits, + - * / . () and spaces.
+    - Evaluates the expression using eval after a simple whitelist check.
+    Note: This is for learning/demo only.
+    """
+    try:
+        allowed = set("0123456789+-*/(). ")
+        if not expr:
+            return "No expression given."
+        if any(ch not in allowed for ch in expr):
+            return "Invalid characters in expression."
+        # Evaluate expression (basic). In production, use a proper parser.
+        result = eval(expr)
+        return str(result)
+    except Exception:
+        return "Couldn't calculate that."
 
-    found = False
-    for key in responses:
-        if key in user_input:
-            print("🤖 Chatbot:", random.choice(responses[key]))
-            found = True
-            break
+def respond(text: str) -> str:
+    """
+    Return a response string based on simple rule checks in the input text.
+    Supports greetings, time, date, jokes, small calculations and help/exit commands.
+    """
+    text = text.lower().strip()
 
-    if not found:
-        print("🤖 Chatbot: Sorry, I didn't understand that.")
+    # greetings
+    if any(g in text for g in ["hi", "hello", "hey"]):
+        return random.choice(GREETINGS)
+
+    # time & date
+    if "time" in text:
+        return "Current time is " + get_time()
+    if "date" in text:
+        return "Today's date is " + get_date()
+
+    # jokes
+    if "joke" in text:
+        return random.choice(JOKES)
+
+    # calculator: "calc 2+3" or "calculate 2+3"
+    if text.startswith("calc ") or text.startswith("calculate "):
+        expr = text.split(" ", 1)[1]
+        return "Result: " + simple_calc(expr)
+
+    # help
+    if "help" in text:
+        return "Commands: time, date, joke, calc <expression>, bye"
+
+    # exit
+    if text in ["bye", "exit", "quit", "goodbye"]:
+        return "Bye! Take care 👋"
+
+    # fallback
+    return "Sorry, I didn't understand. Type 'help' for commands."
+
+def main() -> None:
+    """Main loop: read user input and print bot responses until user exits."""
+    print("🤖 AI Chatbot — type 'help' for commands, 'bye' to exit.")
+    try:
+        while True:
+            user = input("You: ").strip()
+            if not user:
+                continue
+            reply = respond(user)
+            print("Bot:", reply)
+            if user.lower() in ["bye", "exit", "quit", "goodbye"]:
+                break
+    except KeyboardInterrupt:
+        print("\nBot: Bye! (keyboard interrupt)")
+
+if _name_ == "_main_":
+    main()
